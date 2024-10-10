@@ -1,0 +1,78 @@
+
+[
+    {
+        "model": "auth.user",
+        "pk": 1,
+        "fields": {
+            "username": "pedro",
+            "password": "pbkdf2_sha256$600000$rIoRkomgSPR2OsiWvqSLwn$/qC7PLlpGVcFyaEjA8WguFq8bFDWxOCTfn096tnyQQg=",
+            "is_superuser": false,
+            "first_name": "pedro",
+            "last_name": "henrique",
+            "email": "pedro@example.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2024-09-25T12:00:00Z"
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 2,
+        "fields": {
+            "username": "gabriel",
+            "password": "pbkdf2_sha256$600000$rIoRkomgSPR2OsiWvqSLwn$/qC7PLlpGVcFyaEjA8WguFq8bFDWxOCTfn096tnyQQg=",
+            "is_superuser": false,
+            "first_name": "gabriel",
+            "last_name": "gontijo",
+            "email": "gabriel@example.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2024-09-26T12:00:00Z"
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 3,
+        "fields": {
+            "username": "lucas",
+            "password": "pbkdf2_sha256$600000$rIoRkomgSPR2OsiWvqSLwn$/qC7PLlpGVcFyaEjA8WguFq8bFDWxOCTfn096tnyQQg=",
+            "is_superuser": false,
+            "first_name": "lucas",
+            "last_name": "silva",
+            "email": "lucas@example.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2024-09-26T12:00:00Z"
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 4,
+        "fields": {
+            "username": "roberto",
+            "password": "pbkdf2_sha256$600000$rIoRkomgSPR2OsiWvqSLwn$/qC7PLlpGVcFyaEjA8WguFq8bFDWxOCTfn096tnyQQg=",
+            "is_superuser": false,
+            "first_name": "roberto",
+            "last_name": "silva",
+            "email": "roberto@example.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2024-09-26T12:00:00Z"
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 5,
+        "fields": {
+            "username": "joao",
+            "password": "pbkdf2_sha256$600000$rIoRkomgSPR2OsiWvqSLwn$/qC7PLlpGVcFyaEjA8WguFq8bFDWxOCTfn096tnyQQg=",
+            "is_superuser": false,
+            "first_name": "joao",
+            "last_name": "rubens",
+            "email": "joao@example.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2024-09-26T12:00:00Z"
+        }
+    }
+]
