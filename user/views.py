@@ -21,7 +21,7 @@ class LoginView(View):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('task_list')  # Redirecionar para a lista de tarefas após o login bem-sucedido
+                return redirect('task_list')
             else:
                 form.add_error(None, "Usuário ou senha incorretos.")
         return render(request, self.template_name, {'form': form})
@@ -37,12 +37,12 @@ class RegisterView(View):
     def post(self, request):
         form = RegisterForm(request.POST)
         if form.is_valid():
-            form.save()  # Salva o novo usuário
-            return redirect('login')  # Redirecionar para a página de login após o registro
+            form.save()
+            return redirect('login')
         return render(request, self.template_name, {'form': form})
 
 
 class LogoutView(LoginRequiredMixin, View):
     def get(self, request):
         logout(request)
-        return redirect('login')  # Redirecionar para a página de login após o logout
+        return redirect('login')

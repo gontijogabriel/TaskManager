@@ -1,5 +1,4 @@
 from django import forms
-
 from task.models import Task, WorkTime
 
 
@@ -8,8 +7,8 @@ class TaskForm(forms.ModelForm):
         model = Task
         fields = ['title', 'description']
         widgets = {
-            'title': forms.TextInput(attrs={'placeholder': 'Título da tarefa'}),
-            'description': forms.Textarea(attrs={'placeholder': 'Descrição da tarefa'}),
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control'}),
         }
 
 
@@ -31,12 +30,19 @@ class WorkTimeForm(forms.ModelForm):
             'description': forms.Textarea(attrs={'placeholder': 'Descrição do trabalho realizado'}),
         }
 
+    def __init__(self, *args, **kwargs):
+        self.task = kwargs.pop('task', None)
+        super().__init__(*args, **kwargs)
+
     def clean(self):
         cleaned_data = super().clean()
         start_time = cleaned_data.get('start_time')
         end_time = cleaned_data.get('end_time')
 
-        if start_time and end_time and end_time <= start_time:
-            raise forms.ValidationError("A data e hora final devem ser posteriores à data e hora inicial.")
+        if self.task:
+            if start_time and start_time < self.task.created_at:
+                self.add_error('start_time', 'O início do trabalho não pode ser anterior à data de criação da tarefa.')
+            if end_time and end_time < start_time:
+                self.add_error('end_time', 'O término do trabalho não pode ser anterior ao início.')
 
         return cleaned_data
