@@ -1,7 +1,7 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views import View
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
-from django.views import View
-from django.contrib.auth.mixins import LoginRequiredMixin
 
 from user.forms import LoginForm, RegisterForm
 
@@ -23,7 +23,7 @@ class LoginView(View):
                 login(request, user)
                 return redirect('task_list')
             else:
-                form.add_error(None, "Usuário ou senha incorretos.")
+                form.add_error(None, "Usuário ou senha inválidos.")
         return render(request, self.template_name, {'form': form})
 
 
@@ -37,7 +37,7 @@ class RegisterView(View):
     def post(self, request):
         form = RegisterForm(request.POST)
         if form.is_valid():
-            form.save()
+            form.save() 
             return redirect('login')
         return render(request, self.template_name, {'form': form})
 

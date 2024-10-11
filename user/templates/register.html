@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrar-se</title>
-    <!-- Adicione o link do CSS do Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -47,23 +46,47 @@
         <h2 class="h4 mb-4 text-center">Registrar-se</h2>
         <form method="post">
             {% csrf_token %}
-            {% for field in form %}
+
             <div class="form-floating mb-3">
-                {{ field }} <!-- Renderiza o campo do formulário -->
-                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                {% if field.errors %}
-                <div class="text-danger error-message">{{ field.errors }}</div>
+                <input type="text" name="username" class="form-control" id="username" placeholder="Username" required>
+                <label for="username">Username</label>
+                {% if form.username.errors %}
+                <div class="text-danger error-message">{{ form.username.errors }}</div>
                 {% endif %}
             </div>
-            {% endfor %}
+
+            <div class="form-floating mb-3">
+                <input type="text" name="email" class="form-control" id="email" placeholder="Email" required>
+                <label for="email">E-mail</label>
+                {% if form.email.errors %}
+                <div class="text-danger error-message">{{ form.email.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-floating mb-3">
+                <input type="text" name="password1" class="form-control" id="password1" placeholder="Senha" required>
+                <label for="password1">Senha</label>
+                {% if form.password1.errors %}
+                <div class="text-danger error-message">{{ form.password1.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-floating mb-3">
+                <input type="text" name="password2" class="form-control" id="password2" placeholder="Confirme sua senha" required>
+                <label for="password2">Confirme sua senha</label>
+                {% if form.password2.errors %}
+                <div class="text-danger error-message">{{ form.password2.errors }}</div>
+                {% endif %}
+            </div>
+
             <button class="btn btn-primary w-100 py-2" type="submit">Registrar</button>
             <div class="text-center mt-3">
                 <a href="{% url 'login' %}" class="d-block">Já possui uma conta? Faça login</a>
             </div>
+            <p class="text-center mt-3 mb-0">Task Manager ©2024</p>
         </form>
     </main>
 
-    <!-- Adicione o script do Bootstrap (opcional) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 

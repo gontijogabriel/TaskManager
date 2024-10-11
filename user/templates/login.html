@@ -15,11 +15,13 @@
             height: 100vh;
         }
 
-        .form-signin {
+        .form-login {
             background: #ffffff;
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
         }
 
         .form-floating > input,
@@ -40,29 +42,34 @@
 </head>
 
 <body>
-    <main class="form-signin w-100 m-auto" style="max-width: 400px;">
-        <div class="text-center mb-4">
-            <h1 class="h3 mb-3 fw-normal">TaskManager</h1>
-        </div>
+    <main class="form-login">
+        <h2 class="h4 mb-4 text-center">Entrar</h2>
         <form method="post">
             {% csrf_token %}
-            <h1 class="h4 mb-3 fw-normal text-center">Login</h1>
-
-            {% for field in form %}
             <div class="form-floating mb-3">
-                {{ field }}
-                {% if field.errors %}
-                <div class="text-danger error-message">{{ field.errors }}</div>
+                <input type="text" name="username" class="form-control" id="username" placeholder="Username" required>
+                <label for="username">Username</label>
+                {% if form.username.errors %}
+                <div class="text-danger error-message">{{ form.username.errors }}</div>
                 {% endif %}
             </div>
-            {% endfor %}
+
+            <div class="form-floating mb-3">
+                <input type="password" name="password" class="form-control" id="password" placeholder="Password" required>
+                <label for="password">Password</label>
+                {% if form.password.errors %}
+                <div class="text-danger error-message">{{ form.password.errors }}</div>
+                {% endif %}
+                {% if form.non_field_errors %}
+                <div class="text-danger error-message">{{ form.non_field_errors }}</div>
+                {% endif %}
+            </div>
 
             <button class="btn btn-primary w-100 py-2" type="submit">Entrar</button>
-
-            <div class="text-center mt-3">
-                <a href="{% url 'register' %}" class="d-block">Registrar</a>
+            <div class="d-flex justify-content-center gap-2 mt-3">
+                Não possui uma conta?<a href="{% url 'register' %}" class="d-block">registre-se</a>
             </div>
-            <p class="mt-4 mb-0 text-muted text-center">©2024</p>
+            <p class="text-center mt-3 mb-0">Task Manager ©2024</p>
         </form>
     </main>
 
