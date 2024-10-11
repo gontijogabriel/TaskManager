@@ -1,4 +1,3 @@
-
 [
     {
         "model": "auth.user",
@@ -73,6 +72,84 @@
             "is_staff": false,
             "is_active": true,
             "date_joined": "2024-09-26T12:00:00Z"
+        }
+    },
+    {
+        "model": "task.task",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "title": "Desenvolver Funcionalidade de Login",
+            "description": "Criar login e autenticação de usuário",
+            "status": false,
+            "created_at": "2024-10-01T08:30:00Z",
+            "updated_at": "2024-10-01T08:30:00Z"
+        }
+    },
+    {
+        "model": "task.task",
+        "pk": 2,
+        "fields": {
+            "user": 2,
+            "title": "Projetar Dashboard",
+            "description": "Criar o layout e os componentes do dashboard",
+            "status": true,
+            "created_at": "2024-10-02T09:00:00Z",
+            "updated_at": "2024-10-02T12:00:00Z"
+        }
+    },
+    {
+        "model": "task.task",
+        "pk": 3,
+        "fields": {
+            "user": 3,
+            "title": "Implementar Integração de API",
+            "description": "Integrar a API externa com o frontend",
+            "status": false,
+            "created_at": "2024-10-03T10:00:00Z",
+            "updated_at": "2024-10-03T10:30:00Z"
+        }
+    },
+    {
+        "model": "task.worktime",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "task": 1,
+            "start_time": "2024-10-01T08:00:00Z",
+            "end_time": "2024-10-01T12:00:00Z",
+            "hours_worked": "4:00:00",
+            "description": "Trabalhou na implementação da funcionalidade de login",
+            "created_at": "2024-10-01T12:00:00Z",
+            "updated_at": "2024-10-01T12:00:00Z"
+        }
+    },
+    {
+        "model": "task.worktime",
+        "pk": 2,
+        "fields": {
+            "user": 2,
+            "task": 2,
+            "start_time": "2024-10-02T09:00:00Z",
+            "end_time": "2024-10-02T11:00:00Z",
+            "hours_worked": "2:00:00",
+            "description": "Criou o layout principal do dashboard",
+            "created_at": "2024-10-02T11:00:00Z",
+            "updated_at": "2024-10-02T11:00:00Z"
+        }
+    },
+    {
+        "model": "task.worktime",
+        "pk": 3,
+        "fields": {
+            "user": 3,
+            "task": 3,
+            "start_time": "2024-10-03T10:00:00Z",
+            "end_time": "2024-10-03T13:30:00Z",
+            "hours_worked": "3:30:00",
+            "description": "Trabalhou na integração da API",
+            "created_at": "2024-10-03T13:30:00Z",
+            "updated_at": "2024-10-03T13:30:00Z"
         }
     }
 ]
