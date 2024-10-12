@@ -9,25 +9,25 @@
 </head>
 
 <body>
-
     <header class="container d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
         <div class="mb-2 mb-md-0">
-            <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
+            <a href="{% url 'task_list' %}" class="d-inline-flex link-body-emphasis text-decoration-none">
                 <h2>Task Manager</h2>
             </a>
         </div>
 
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-            <li><a href="{% url 'task_list' %}" class="nav-link px-2 link-secondary">Home</a></li>
             <li><a href="{% url 'task_create' %}" class="nav-link px-2">Nova Task</a></li>
-            <li><a href="{% url 'logout' %}" class="nav-link px-2">Sair</a></li>
+            <li><a href="{% url 'worktime_list' %}" class="nav-link px-2">Tempo de Trabalho</a></li>
+            <li><a href="{% url 'logout' %}" class="nav-link px-2">({{ request.user }}) Sair</a></li>
         </ul>
     </header>
 
-    <div class="container mt-4">
+    <main class="container mt-4">
         {% block content %}{% endblock %}
-    </div>
+    </main>
 
+    {% block script %}{% endblock %}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
