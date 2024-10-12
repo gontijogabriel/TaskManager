@@ -1,5 +1,8 @@
 from django import forms
+
 from task.models import Task, WorkTime
+
+from django.utils import timezone
 
 
 class TaskForm(forms.ModelForm):
@@ -30,19 +33,21 @@ class WorkTimeForm(forms.ModelForm):
             'description': forms.Textarea(attrs={'placeholder': 'Descrição do trabalho realizado'}),
         }
 
-    def __init__(self, *args, **kwargs):
-        self.task = kwargs.pop('task', None)
-        super().__init__(*args, **kwargs)
 
     def clean(self):
         cleaned_data = super().clean()
         start_time = cleaned_data.get('start_time')
         end_time = cleaned_data.get('end_time')
 
-        if self.task:
-            if start_time and start_time < self.task.created_at:
-                self.add_error('start_time', 'O início do trabalho não pode ser anterior à data de criação da tarefa.')
-            if end_time and end_time < start_time:
-                self.add_error('end_time', 'O término do trabalho não pode ser anterior ao início.')
+        data_atual = timezone.now()
+
+        if not start_time or not end_time:
+            raise forms.ValidationError("Os campos de horário de início e fim são obrigatórios.")
+
+        if start_time >= end_time:
+            raise forms.ValidationError("O horário de início deve ser anterior ao horário de fim.")
+
+        if end_time > data_atual:
+            raise forms.ValidationError("Horário final inválido, deve ser anterior ao horário atual.")
 
         return cleaned_data

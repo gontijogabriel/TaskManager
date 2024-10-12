@@ -1,13 +1,20 @@
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import get_user_model
 from django.views.generic import ListView, CreateView, View
 from django.shortcuts import get_object_or_404, redirect
 from django_filters.views import FilterView
+from django.http import JsonResponse
 
 from task.models import Task, WorkTime
 from task.forms import TaskForm, WorkTimeForm
-from task.filters import TaskFilter
+from task.filters import TaskFilter, WorkTimeFilter
 
+from datetime import timedelta
+
+import json
+
+User = get_user_model()
 
 class TaskListView(LoginRequiredMixin, FilterView):
     model = Task
@@ -26,6 +33,7 @@ class TaskListView(LoginRequiredMixin, FilterView):
             queryset = queryset.filter(status=True)
 
         return queryset
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -56,23 +64,79 @@ class TaskCheck(LoginRequiredMixin, View):
         if task.user == request.user:
             task.status = True
             task.save()
-        
-        return redirect('task_list') 
-        
+        return redirect('task_list')
 
-class WorkTimeCreateView(LoginRequiredMixin, CreateView):
+
+class WorkTimeListView(LoginRequiredMixin, FilterView):
     model = WorkTime
-    form_class = WorkTimeForm
-    template_name = 'task_list.html'
+    template_name = 'worktime_list.html'
+    context_object_name = 'worktimes'
+    filterset_class = WorkTimeFilter
+    success_url = reverse_lazy('worktime_list')
 
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        task_id = self.request.POST.get('task')
-        task = get_object_or_404(Task, id=task_id)
-        kwargs['task'] = task
-        return kwargs
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['users'] = User.objects.all()
+        return context
 
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        form.instance.task = form.cleaned_data['task']
-        return super().form_valid(form)
+    def get_queryset(self):
+        queryset = super().get_queryset()
+
+        start_time = self.request.GET.get('start_time')
+        end_time = self.request.GET.get('end_time')
+        hours_worked = self.request.GET.get('hours_worked')
+        description = self.request.GET.get('description')
+        task_id = self.request.GET.get('task')
+        username = self.request.GET.get('user')
+
+        if start_time:
+            queryset = queryset.filter(start_time__gte=start_time)
+
+        if end_time:
+            queryset = queryset.filter(end_time__lte=end_time)
+
+        if hours_worked:
+            try:
+                hours_worked_duration = self.parse_hours_worked(hours_worked)
+                queryset = queryset.filter(hours_worked__gte=hours_worked_duration)
+            except ValueError:
+                pass
+
+        if description:
+            queryset = queryset.filter(description__icontains=description)
+
+        if task_id:
+            queryset = queryset.filter(task_id=task_id)
+
+        if username:
+            # Aqui buscamos o ID do usuário usando o username
+            try:
+                user = User.objects.get(username=username)
+                queryset = queryset.filter(user_id=user.id)
+            except User.DoesNotExist:
+                pass  # Ou você pode lidar com o caso de usuário não encontrado
+
+        return queryset
+
+
+    def parse_hours_worked(self, hours_worked_str):
+        hours, minutes = map(int, hours_worked_str.split(':'))
+        return timedelta(hours=hours, minutes=minutes)
+
+
+class WorkTimeCreateView(View):
+    def post(self, request, *args, **kwargs):
+        if request.headers.get('Content-Type') == 'application/json':
+            data = json.loads(request.body)
+            form = WorkTimeForm(data)
+        else:
+            form = WorkTimeForm(request.POST)
+
+        if form.is_valid():
+            worktime = form.save(commit=False)
+            worktime.user = request.user
+            worktime.save()
+            return JsonResponse({'status': 'success'})
+        else:
+            return JsonResponse({'status': 'error', 'errors': form.errors}, status=400)
+    
