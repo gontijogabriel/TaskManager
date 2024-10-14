@@ -6,15 +6,20 @@ from django.utils import timezone
 
 
 class TaskForm(forms.ModelForm):
+    title = forms.CharField(
+        max_length=150,
+        widget=forms.TextInput(attrs={'placeholder': 'Título'})
+    )
+    description = forms.CharField(
+        max_length=150,
+        widget=forms.TextInput(attrs={'placeholder': 'Descrição'})
+    )
+
     class Meta:
         model = Task
         fields = ['title', 'description']
-        widgets = {
-            'title': forms.TextInput(attrs={'class': 'form-control'}),
-            'description': forms.Textarea(attrs={'class': 'form-control'}),
-        }
 
-
+        
 class WorkTimeForm(forms.ModelForm):
     start_time = forms.DateTimeField(
         widget=forms.DateTimeInput(attrs={'type': 'datetime-local'}),

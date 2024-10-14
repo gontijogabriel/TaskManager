@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 
 User = get_user_model()
 
+
 class LoginForm(forms.Form):
     username = forms.CharField(
         max_length=150,
@@ -12,6 +13,7 @@ class LoginForm(forms.Form):
     password = forms.CharField(
         widget=forms.PasswordInput(attrs={'placeholder': 'Senha'})
     )
+
 
 class RegisterForm(UserCreationForm):
     email = forms.EmailField(

@@ -5,9 +5,10 @@ from core.models import BaseModel
 
 User = get_user_model()
 
+
 class Task(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=250, unique=True)
     description = models.TextField(max_length=500)
     status = models.BooleanField(default=False)
 
@@ -26,7 +27,7 @@ class WorkTime(BaseModel):
     start_time = models.DateTimeField()
     end_time = models.DateTimeField() 
     hours_worked = models.DurationField()
-    description = models.TextField(max_length=500)
+    description = models.TextField(max_length=250)
 
     class Meta:
         verbose_name = "Work Time"

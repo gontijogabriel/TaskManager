@@ -25,8 +25,8 @@ class LoginView(View):
             else:
                 form.add_error(None, "Usuário ou senha inválidos.")
         return render(request, self.template_name, {'form': form})
-
-
+    
+    
 class RegisterView(View):
     template_name = 'register.html'
     
