@@ -1,0 +1,39 @@
+body {
+    background-color: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.form-register {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    position: relative;
+}
+
+.form-floating > input,
+.form-floating > label {
+    width: 100%;
+    padding: 10px;
+}
+
+.form-floating > label {
+    color: #6c757d;
+}
+
+.error-message {
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+}
+
+.error-modal {
+    position: absolute;
+    top: -70px;
+    left: 0;
+    width: 100%;
+}
