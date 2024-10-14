@@ -1,48 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registrar-se</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background-color: #f8f9fa;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
+{% load static %}
 
-        .form-register {
-            background: #ffffff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-        }
+{% block title %} Task Manager - Registro {% endblock %}
 
-        .form-floating > input,
-        .form-floating > label {
-            width: 100%;
-            padding: 10px;
-        }
+{% block css %}
+    <link rel="stylesheet" href="{% static 'user/css/style.css' %}">
+{% endblock %}
 
-        .form-floating > label {
-            color: #6c757d;
-        }
-
-        .error-message {
-            font-size: 0.9rem;
-            margin-top: 0.25rem;
-        }
-    </style>
-</head>
-
-<body>
-    <main class="form-register">
+{% block content %}
+    <div class="form-register">
         <h2 class="h4 mb-4 text-center">Registrar-se</h2>
         <form method="post">
             {% csrf_token %}
@@ -50,33 +17,21 @@
             <div class="form-floating mb-3">
                 <input type="text" name="username" class="form-control" id="username" placeholder="Username" required>
                 <label for="username">Username</label>
-                {% if form.username.errors %}
-                <div class="text-danger error-message">{{ form.username.errors }}</div>
-                {% endif %}
             </div>
 
             <div class="form-floating mb-3">
                 <input type="text" name="email" class="form-control" id="email" placeholder="Email" required>
                 <label for="email">E-mail</label>
-                {% if form.email.errors %}
-                <div class="text-danger error-message">{{ form.email.errors }}</div>
-                {% endif %}
             </div>
 
             <div class="form-floating mb-3">
-                <input type="text" name="password1" class="form-control" id="password1" placeholder="Senha" required>
+                <input type="password" name="password1" class="form-control" id="password1" placeholder="Senha" required>
                 <label for="password1">Senha</label>
-                {% if form.password1.errors %}
-                <div class="text-danger error-message">{{ form.password1.errors }}</div>
-                {% endif %}
             </div>
 
             <div class="form-floating mb-3">
-                <input type="text" name="password2" class="form-control" id="password2" placeholder="Confirme sua senha" required>
+                <input type="password" name="password2" class="form-control" id="password2" placeholder="Confirme sua senha" required>
                 <label for="password2">Confirme sua senha</label>
-                {% if form.password2.errors %}
-                <div class="text-danger error-message">{{ form.password2.errors }}</div>
-                {% endif %}
             </div>
 
             <button class="btn btn-primary w-100 py-2" type="submit">Registrar</button>
@@ -85,9 +40,14 @@
             </div>
             <p class="text-center mt-3 mb-0">Task Manager ©2024</p>
         </form>
-    </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+        {% include 'errors.html' %}
+        
+    </div>
+{% endblock %}
 
-</html>
+
+
+{% block scripts %}
+    <script href="{% static 'user/js/errors.js' %}"></script>
+{% endblock %}

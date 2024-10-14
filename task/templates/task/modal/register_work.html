@@ -1,0 +1,35 @@
+<div class="modal fade" id="workTimeModal-{{ task.id }}" tabindex="-1" aria-labelledby="workTimeModalLabel-{{ task.id }}" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="workTimeModalLabel-{{ task.id }}">Registrar Trabalho</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="{% url 'worktime_create' %}" id="workTimeForm-{{ task.id }}">
+                    {% csrf_token %}
+                    <input type="hidden" name="task" value="{{ task.id }}">
+                    <div class="row gy-3">
+                        <div class="col-md-6">
+                            <label for="start_time" class="form-label">Data e Hora de Início</label>
+                            <input type="datetime-local" class="form-control" name="start_time" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="end_time" class="form-label">Data e Hora de Fim</label>
+                            <input type="datetime-local" class="form-control" name="end_time" required>
+                        </div>
+                        <div class="col-12">
+                            <label for="description" class="form-label">Descrição</label>
+                            <textarea class="form-control" name="description" rows="3" required></textarea>
+                        </div>
+                    </div>
+                    <div class="error-container"></div>
+                    <div class="modal-footer mt-4">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

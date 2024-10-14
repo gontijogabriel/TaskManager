@@ -1,0 +1,16 @@
+<div class="modal fade" id="checkTaskModal-{{ task.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                Tem certeza que deseja concluir a Task?
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                <form method="POST" action="{% url 'task_check' task.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-success">Concluir</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

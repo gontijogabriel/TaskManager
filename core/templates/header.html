@@ -1,0 +1,14 @@
+{% if request.user.is_authenticated %}
+<header class="container d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+    <div class="mb-2 mb-md-0">
+        <a href="{% url 'task_list' %}" class="d-inline-flex link-body-emphasis text-decoration-none">
+            <h2>Task Manager</h2>
+        </a>
+    </div>
+    <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+        <li><a href="{% url 'task_create' %}" class="nav-link px-2">Nova Task</a></li>
+        <li><a href="{% url 'worktime_list' %}" class="nav-link px-2">Tempo de Trabalho</a></li>
+        <li><a href="{% url 'logout' %}" class="nav-link px-2">({{ request.user }}) Sair</a></li>
+    </ul>
+</header>
+{% endif %}
