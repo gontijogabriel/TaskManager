@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %} Editar Task {% endblock %}
+
+{% block content %}
+    <main class="container mt-4">
+        
+        {% include 'errors.html' %}
+
+        <div class="container mb-4">
+            <h1 class="h3">Editar Task</h1>
+            
+            <form method="post" class="card p-4 shadow-sm">
+                {% csrf_token %}
+                <div class="form-floating mb-3">
+                    <input type="text" name="title" class="form-control" id="title" placeholder="Título" value="{{ task.title }}" required>
+                    <label for="title">Título</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="text" name="description" class="form-control" id="description" value="{{ task.description }}"  placeholder="Descrição"
+                        required>
+                    <label for="description">Descrição</label>
+                </div>
+                
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </div>
+            </form>
+
+            <div class="mt-4">
+                <a href="{% url 'task_list' %}" class="btn btn-outline-secondary">Voltar</a>
+            </div>
+        </div>
+    </main>
+{% endblock %}

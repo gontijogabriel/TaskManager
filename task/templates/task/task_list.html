@@ -84,7 +84,7 @@
                 <div class="card-body">
                     <h6 class="mb-2">Task</h6>
                     <p class="card-text">{{ task.description }}</p>
-    
+        
                     {% if task.worktime_set.all %}
                     <ul class="list-unstyled">
                         {% for entry in task.worktime_set.all %}
@@ -101,14 +101,15 @@
                         {% endfor %}
                     </ul>
                     {% endif %}
-    
+        
                     {% if task.status == False %}
                     <div>
                         {% if task.user == request.user %}
                         <button type="button" class="btn btn-success" data-bs-toggle="modal"
                             data-bs-target="#checkTaskModal-{{ task.id }}">
-                            Conluir
+                            Concluir
                         </button>
+                        <a href="{% url 'task_edit' task.id %}" class="btn btn-warning">Editar</a>
                         {% endif %}
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                             data-bs-target="#workTimeModal-{{ task.id }}">
@@ -116,11 +117,10 @@
                         </button>
                     </div>
                     {% endif %}
-    
+        
                     {% include 'task/modal/register_work.html' %}
-    
+        
                     {% include 'task/modal/confirm.html' %}
-
                 </div>
             </li>
             {% empty %}
@@ -129,6 +129,7 @@
             </div>
             {% endfor %}
         </ul>
+        
     </section>
 </main>
 {% endblock %}

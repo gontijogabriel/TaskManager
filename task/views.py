@@ -1,7 +1,7 @@
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import get_user_model
-from django.views.generic import ListView, CreateView, View
+from django.views.generic import CreateView, View, UpdateView
 from django.shortcuts import get_object_or_404, redirect
 from django_filters.views import FilterView
 from django.http import JsonResponse
@@ -59,6 +59,23 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
     
     def form_invalid(self, form):
         return self.render_to_response(self.get_context_data(form=form)) 
+
+
+class TaskUpdateView(LoginRequiredMixin, UpdateView):
+    model = Task
+    form_class = TaskForm
+    template_name = 'task/task_edit.html'
+    success_url = reverse_lazy('task_list')
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(user=self.request.user)
+    
+    def form_valid(self, form):
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        return self.render_to_response(self.get_context_data(form=form))
 
 
 class TaskCheck(LoginRequiredMixin, View):
