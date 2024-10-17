@@ -106,7 +106,7 @@ class WorkTimeListView(LoginRequiredMixin, FilterView):
         end_time = self.request.GET.get('end_time')
         hours_worked = self.request.GET.get('hours_worked')
         description = self.request.GET.get('description')
-        task_id = self.request.GET.get('task')
+        task = self.request.GET.get('task')
         username = self.request.GET.get('user')
 
         if start_time:
@@ -125,8 +125,8 @@ class WorkTimeListView(LoginRequiredMixin, FilterView):
         if description:
             queryset = queryset.filter(description__icontains=description)
 
-        if task_id:
-            queryset = queryset.filter(task_id=task_id)
+        if task:
+            queryset = queryset.filter(task__title__icontains=task)
 
         if username:
             try:
