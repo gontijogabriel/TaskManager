@@ -2,6 +2,7 @@
 
 Este é um projeto de gerenciamento de tarefas criado com Django. Ele permite que os usuários criem, editem, filtrem e concluam tarefas, além de registrar o tempo de trabalho para cada tarefa.
 
+- [Apresentação](https://youtu.be/RM3TcrYj96g)
 - [Funcionalidades](#funcionalidades)
 - [Modelos](#modelos)
   - [Task](#task)
